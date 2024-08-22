@@ -1,0 +1,47 @@
+.nav {
+  border: solid 2px;
+  background-color: #d5d3d3;
+  height: 88px;
+  width: 100vw;
+}
+
+.nav-lista {
+  background-color: rgb(176, 137, 213);
+}
+ul {
+  display: flex;
+  margin-left: 30vw;
+}
+li {
+  margin: 1vh 2vw;
+}
+
+.logo {
+  display: inline-block;
+    width: 110px;
+    
+  position: absolute;
+}
+
+.cotizaciones {
+  border: solid;
+  border-radius: 15px;
+  background-color: rgba(193, 193, 217, 0.5);
+  margin: 10px;
+}
+.dolar {
+  border: solid 1px;
+  margin: 10px;
+  display: inline-block;
+  padding: 5px 30px;
+  max-width: 400px;
+}
+p {
+  padding: 0;
+  margin: 0;
+}
+.moneda {
+  font-size: 4vw;
+}
+.compra {
+}
