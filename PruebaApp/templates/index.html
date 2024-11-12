@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotizaciones</title>
-    <link rel="stylesheet" href="/PruebaApp/static/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+
     <nav>
         <ul>
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="historico.html">Histórico</a></li>
+            <li><a href="{{ url_for('home') }}" class="active">Home</a></li>
         </ul>
-    </nav>
+    </nav>       
 
     <main>
         <h2>Cotizaciones de Dólar</h2>
@@ -48,7 +48,7 @@
                       {% if cotizacionOtros.nombre == "Dólar" %}
                         <!--Para evitar la repeticion del dolar-->
                       {% else %}
-                    <div class="cotizacionOtro">
+                    <div class="cotizacionesOtros">
                         <h3>{{ cotizacionOtros.nombre }}</h3>
                         <p>Compra: ${{ cotizacionOtros.compra }}</p>
                         <p>Venta: ${{ cotizacionOtros.venta }}</p>
