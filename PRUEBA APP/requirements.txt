@@ -1,0 +1,4 @@
+flask
+requests
+render_template
+jsonify
