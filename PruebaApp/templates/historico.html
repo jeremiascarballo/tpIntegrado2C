@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Histórico de Cambio</title>
-    <link rel="stylesheet" href="/PruebaApp/static/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <nav>
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="historico.html" class="active">Histórico</a></li>
+            <li><a href="{{ url_for('home') }}" class="active">Home</a></li>
+            <li><a href="{{ url_for('historico') }}" class="active">Historico</a></li>
         </ul>
     </nav>
     <main>
@@ -27,13 +27,40 @@
             <!-- Añadir filtro por intervalo o fechas a elegir -->
         </div>
 
-        <div id="grafica"></div> <!-- Aquí se mostrará la gráfica -->
-        <div id="tablaHistorico"></div> <!-- Aquí se mostrará la tabla de datos históricos -->
+        <div id="grafica"></div> 
+        <div id="tablaHistorico">
+            {% if historico_cotizaciones and 'error' not in historico_cotizaciones %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Moneda</th>
+                            <th>Casa</th>
+                            <th>Fecha</th>
+                            <th>Compra</th>
+                            <th>Venta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cotizacion in historico_cotizaciones %}
+                            <tr>
+                                <td>{{ cotizacion.moneda }}</td>
+                                <td>{{ cotizacion.casa }}</td>
+                                <td>{{ cotizacion.fecha }}</td>
+                                <td>{{ cotizacion.compra }}</td>
+                                <td>{{ cotizacion.venta }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No se pudo obtener los datos históricos.</p>
+            {% endif %}
+        </div> 
+        
         <button onclick="sendMail()">Send me the info please</button>
         <div id="indicadorActualizacion">Última actualización: </div>
     </main>
 
-    <!-- Pie de Página -->
     <footer>
         <p>Integrantes: (Nombres)</p>
         <p>UTN - Carrera: (Nombre) - Materia: (Nombre)</p>

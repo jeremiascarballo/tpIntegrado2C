@@ -10,20 +10,6 @@ def home():
         
         if response_dolares.status_code == 200:
             cotizaciones = response_dolares.json()
-
-            print(f"-"*80)
-            print(f"Moneda: \tNombre: \tCompra: \tVenta: \t")
-            print(f"-"*80)
-
-            for tipo_cambio in cotizaciones:
-                moneda = tipo_cambio.get('moneda')
-                casa = tipo_cambio.get('casa')
-                compra = tipo_cambio.get('compra')
-                venta = tipo_cambio.get('venta')
-                fecha_actualizacion = tipo_cambio.get('fecha_actualizacion')
-                print(f"{moneda}\t\t{casa}\t\t{compra}\t\t{venta}\t\n")
-            
-            print(f"-"*80)
         else:
             cotizaciones = {"error": "No se pudo obtener los datos. Código de error: " + str(response_dolares.status_code)}
     
@@ -43,6 +29,20 @@ def home():
 
     return render_template('index.html',cotizaciones=cotizaciones, cotizacionesOtros=cotizacionesOtros)
 
+@app.route('/historico', methods=['GET'])
+def historico():
+    try:
+        response_historico_dolares = requests.get('https://api.argentinadatos.com/v1/cotizaciones/dolares/{casa}/{fecha}')
+        
+        if response_historico_dolares.status_code == 200:
+            historico_cotizaciones = response_historico_dolares.json()
+        else:
+            historico_cotizaciones = {"error": "No se pudo obtener los datos. Código de error: " + str(response_historico_dolares.status_code)}
+    
+    except requests.RequestException as e:
+        historico_cotizaciones = {"error": "Ocurrió un error al conectar con la API: " + str(e)}
+
+    return render_template('historico.html', historico_cotizaciones=historico_cotizaciones)
 
 if __name__ == '__main__':
     app.run(debug=True)
