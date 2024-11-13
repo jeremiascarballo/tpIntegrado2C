@@ -44,24 +44,21 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-//Inicio Tabla historicos y paginacion.
+
 async function obtenerHistoricoCompleto() {
     const res = await fetch(API_URL_HISTORICO_COMPLETO);
     const data_historico_completo = await res.json();
-    const fecha_cotizacion = document.getElementById("fecha_cotizacion").value;
+    let fecha_cotizacion = document.getElementById("fecha_cotizacion").value;
 
-    if (fecha_cotizacion) {
-        mostrarTablaFecha(data_historico_completo)
+    if (fecha_cotizacion && fecha_cotizacion !=="") {
+        mostrarTablaFecha(data_historico_completo);
     }
     else{
-    mostrarTablaCompleta(data_historico_completo);
+    mostrarTabla(data_historico_completo);
     }
     mostrarGrafico(data_historico_completo);
 }
-function mostrarTablaFecha(datos) {
-    const tablaContainer = document.getElementById("tablaHistorico");
-    tablaContainer.innerHTML = "";
-
+function mostrarTablaFecha(dato) {
     const tabla = document.createElement("table");
     const encabezado = document.createElement("tr");
 
@@ -71,20 +68,22 @@ function mostrarTablaFecha(datos) {
         <th>Fecha</th>
         <th>Venta</th>
     `;
-    const fila = document.createElement("tr");
-            fila.innerHTML = `
-                <td>${datos.casa}</td>
-                <td>${datos.compra}</td>
-                <td>${datos.fecha}</td>
-                <td>${datos.venta}</td>
-            `;
-            tabla.appendChild(fila)
-        ;
-        tablaContainer.appendChild(tabla);
+    tabla.appendChild(encabezado);
+
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+            <td>${dato.casa}</td>
+            <td>${dato.compra}</td>
+            <td>${dato.fecha}</td>
+            <td>${dato.venta}</td>
+        `;
+        tabla.appendChild(fila);
+    ;
+    document.getElementById("tablaHistorico").appendChild(tabla);
 }
 
 
-function mostrarTablaCompleta(datos) {
+function mostrarTabla(datos) {
     const tablaContainer = document.getElementById("tablaHistorico");
     tablaContainer.innerHTML = "";
 
