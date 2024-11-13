@@ -15,7 +15,7 @@
     </nav>
     <main>
         <h2>Histórico de Moneda</h2>
-        
+        <div class="formulario">
             <form action="/historico" method="POST">
                 <label for="dolar">Selecciona un tipo de dolar:</label>
                     <select name="dolar_historico" id="dolar_historico">
@@ -30,18 +30,12 @@
                     </select>
                     <button type="submit">Enviar</button>
             </form>
-     
+        </div>
+        <div id="tablaHistorico">
 
-        <div id="grafica"></div> <!-- Aquí se mostrará la gráfica -->
-        <div id="tablaHistorico"></div> <!-- Aquí se mostrará la tabla de datos históricos -->
+        </div>
     </main>
 
-
-
-
-
-
-    <!-- Pie de Página -->
     <footer>
         <p>Integrantes: (Nombres)</p>
         <p>UTN - Carrera: (Nombre) - Materia: (Nombre)</p>
