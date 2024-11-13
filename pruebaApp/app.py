@@ -6,6 +6,8 @@ from email.message import EmailMessage
 app = Flask(__name__)
 CORS(app)
 
+data_historico_completo = []
+
 @app.route('/datos_cotizacion/')
 def datos_cotizacion():
     url = "https://dolarapi.com/v1/dolares"

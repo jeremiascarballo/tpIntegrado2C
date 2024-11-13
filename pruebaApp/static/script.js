@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-async function obtenerHistoricoCompleto(){
+/*async function obtenerHistoricoCompleto(){
     const res = await fetch(API_URL_HISTORICO_COMPLETO);
     const data_historico_completo = await res.json();
     mostrarTabla(data_historico_completo);
@@ -71,7 +71,78 @@ function mostrarTabla(datos) {
         tabla.appendChild(fila);
     });
     document.getElementById("tablaHistorico").appendChild(tabla);
+}*/
+
+async function obtenerHistoricoCompleto() {
+    const res = await fetch(API_URL_HISTORICO_COMPLETO);
+    const data_historico_completo = await res.json();
+    mostrarTabla(data_historico_completo);
+    mostrarGrafico(data_historico_completo);
 }
 
+function mostrarTabla(datos) {
+    const tabla = document.createElement("table");
+    const encabezado = document.createElement("tr");
+
+    encabezado.innerHTML = `
+        <th>Tipo de Dólar</th>
+        <th>Compra</th>
+        <th>Fecha</th>
+        <th>Venta</th>
+    `;
+    tabla.appendChild(encabezado);
+
+    datos.forEach(dato => {
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+            <td>${dato.casa}</td>
+            <td>${dato.compra}</td>
+            <td>${dato.fecha}</td>
+            <td>${dato.venta}</td>
+        `;
+        tabla.appendChild(fila);
+    });
+    document.getElementById("tablaHistorico").appendChild(tabla);
+}
+
+function mostrarGrafico(datos) {
+    // Obtener fechas y valores de venta para la gráfica
+    const fechas = datos.map(dato => dato.fecha);
+    const valoresVenta = datos.map(dato => parseFloat(dato.venta));
+
+    // Configuración de la gráfica
+    const ctx = document.getElementById('graficoHistorico').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: fechas,
+            datasets: [{
+                label: 'Venta (en pesos)',
+                data: valoresVenta,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderWidth: 1,
+                fill: true
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Fecha'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Valor de Venta'
+                    },
+                    beginAtZero: false
+                }
+            }
+        }
+    });
+}
 
 obtenerHistoricoCompleto();
