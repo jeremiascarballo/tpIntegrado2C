@@ -9,8 +9,11 @@ body {
 }
 
 nav{
+    position: sticky;
+    top: 0;
     background-color: rgb(194, 194, 176);
     border: solid 0.2rem black;
+    z-index: 1000;
 }
 nav ul{
     display: flex;
