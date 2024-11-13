@@ -29,10 +29,19 @@ def datos_cotizacion(cotizacion):
 def index():
     return render_template('index.html')
 
-@app.route('/historico')
+@app.route('/historico', methods=['GET', 'POST'])
 def historico():
+    tipo_dolar = request.form.get('dolar_historico', 'oficial')  # Valor por defecto si no se selecciona
+    url = f"https://api.argentinadatos.com/v1/cotizaciones/dolares/{tipo_dolar}"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        data_historico = response.json()
+        return render_template('historico.html', data_historico=data_historico)  # Enviar datos si se obtiene respuesta
+    else:
+        # En caso de error, pasar un mensaje a la plantilla
+        return render_template('historico.html', error="No se pudo obtener la información histórica.")
 
-         return render_template('historico.html')
 
 
 @app.route('/usuario', methods=['POST'])
