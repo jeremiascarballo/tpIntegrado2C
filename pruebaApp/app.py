@@ -25,22 +25,19 @@ def index():
 @app.route('/historico', methods=['GET', 'POST'])
 def historico():
     global data_historico_completo
-    tipo_dolar = request.form.get('dolar_historico', 'oficial')  # Valor por defecto si no se selecciona
+    tipo_dolar = request.form.get('dolar_historico', 'oficial')
     url = f"https://api.argentinadatos.com/v1/cotizaciones/dolares/{tipo_dolar}"
     response = requests.get(url)
     
     if response.status_code == 200:
         data_historico_completo = response.json()
-        return render_template('historico.html', data_historico_completo=data_historico_completo)  # Enviar datos si se obtiene respuesta
+        return render_template('historico.html', data_historico_completo=data_historico_completo)
     else:
-        # En caso de error, pasar un mensaje a la plantilla
         return render_template('historico.html', error="No se pudo obtener la información histórica.")
 
 @app.route('/datos_cotizacion_historico/')
 def datos_cotizacion_historico():
         return jsonify(data_historico_completo)
-
-
 
 @app.route('/usuario', methods=['POST'])
 def usuario():
@@ -74,6 +71,3 @@ def usuario():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
