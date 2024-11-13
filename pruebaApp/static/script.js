@@ -1,7 +1,6 @@
-// URL de la API para obtener las cotizaciones
+
 const API_URL_DOLAR = '/datos_cotizacion/dolar';
 
-// Función para obtener y mostrar las cotizaciones
 async function obtenerCotizaciones(){
     const res = await fetch(API_URL_DOLAR);
     const data = await res.json();

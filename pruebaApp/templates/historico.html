@@ -14,24 +14,32 @@
         </ul>
     </nav>
     <main>
-        <h1>Histórico de Moneda</h1>
-        <label for="moneda">Selecciona una moneda:</label>
-        <select id="moneda">
-            <option value="USD">USD</option>
-            <option value="EUR">EUR</option>
-        </select>
-
-        <div id="filtros">
-            <button onclick="mostrarHistorico('completo')">Completo</button>
-            <button onclick="mostrarHistorico('ultimo_mes')">Último Mes</button>
-            <!-- Añadir filtro por intervalo o fechas a elegir -->
-        </div>
+        <h2>Histórico de Moneda</h2>
+        
+            <form action="/historico" method="POST">
+                <label for="dolar">Selecciona un tipo de dolar:</label>
+                    <select name="dolar_historico" id="dolar_historico">
+                        <option value="oficial">oficial</option>
+                        <option value="blue">blue</option>
+                        <option value="bolsa">bolsa</option>
+                        <option value="contadoconliqui">contadoconliqui</option>
+                        <option value="cripto">cripto</option>
+                        <option value="mayorista">mayorista</option>
+                        <option value="solidario">solidario</option>
+                        <option value="turista">turista</option>
+                    </select>
+                    <button type="submit">Enviar</button>
+            </form>
+     
 
         <div id="grafica"></div> <!-- Aquí se mostrará la gráfica -->
         <div id="tablaHistorico"></div> <!-- Aquí se mostrará la tabla de datos históricos -->
-        <button onclick="sendMail()">Send me the info please</button>
-        <div id="indicadorActualizacion">Última actualización: </div>
     </main>
+
+
+
+
+
 
     <!-- Pie de Página -->
     <footer>
