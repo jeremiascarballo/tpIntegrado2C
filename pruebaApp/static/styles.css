@@ -238,9 +238,13 @@ h3{
     align-items: center;
     margin-top: 2rem;
     width: 100%;
-    margin: 0 auto;
+    margin-top: 3rem;
 }
 
+#graficoHistorico {
+    max-width: 100%;
+    height: 400px;  
+}
 
 footer {
     margin-top: auto;
@@ -248,4 +252,36 @@ footer {
     color: white;
     text-align: center;
     padding: 15px 0;
+}
+
+footer a {
+    color: #41c45e; 
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+
+    #tablaHistorico {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+
+    #tablaHistorico th, #tablaHistorico td {
+        padding: 8px;
+    }
+
+    .paginacion button {
+        padding: 5px 8px;
+        font-size: 0.9rem;
+    }
+
+    .formulario {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
 }
