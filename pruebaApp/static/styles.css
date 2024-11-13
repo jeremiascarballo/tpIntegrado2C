@@ -76,8 +76,6 @@ h3{
     font-size: 1.2rem;
 }
 
-
-
 .cotizacionesOtros{
     display: grid;
     grid-template-columns:auto auto;
@@ -105,10 +103,6 @@ h3{
     font-size: 1rem;
 }
 
-#tablaHistorico{
-    margin:auto;
-    text-align: center;
-}
 
 footer {
     margin-top: auto;
@@ -126,4 +120,62 @@ footer {
 }
 .formulario p{
     font-size: 0.8rem;
+}
+
+/* Historico.html*/
+
+/*Tabla y paginacion*/
+.tablaContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Centra horizontalmente los elementos hijos */
+    justify-content: center;
+    width: 100%; /* Limita el ancho */
+    margin: 0 auto;  /* Centra el contenedor */
+}
+
+#tablaHistorico{
+    margin: 2rem auto;
+    text-align: center;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#controlesPaginacion {
+    display: flex;
+    justify-content: center; 
+    margin-top: 1rem;
+}
+
+.paginacion {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.paginacion button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.paginacion button.activo {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+}
+
+.paginacion button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+/* Grafica */
+.grafico-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    width: 100%;
+    margin: 0 auto;
 }
