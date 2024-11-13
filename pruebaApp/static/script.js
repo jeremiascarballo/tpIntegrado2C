@@ -10,22 +10,21 @@ async function obtenerCotizaciones(){
 
 function mostrarCotizacionDolar(data, idContainer){
         const container = document.getElementById(idContainer);
+        container.innerHTML = '';
 
         data.forEach(data => {
             const cotizacionDiv = document.createElement('div');
-        cotizacionDiv.classList.add(data.nombre === "Oficial" ? 'oficial' : 'cotizacion');
+            cotizacionDiv.classList.add(data.nombre === "Oficial" ? 'oficial' : 'cotizacion');
 
-        const fecha = new Date(data.fechaActualizacion);
-        const fechaFormateada = fecha.toLocaleString();
+            const fecha = new Date(data.fechaActualizacion);
+            const fechaFormateada = fecha.toLocaleString();
 
-        cotizacionDiv.innerHTML = `
-            <h3>${data.nombre}</h3>
-            <p>Compra: $${data.compra}</p>
-            <p>Venta: $${data.venta}</p>
-            <p>Última actualización: ${fechaFormateada}</p>
-        `;
-        container.appendChild(cotizacionDiv);
-
+            cotizacionDiv.innerHTML = 
+                `<h3>${data.nombre}</h3>
+                <p>Compra: $${data.compra}</p>
+                <p>Venta: $${data.venta}</p>
+                <p>Última actualización: ${fechaFormateada}</p>`;
+            container.appendChild(cotizacionDiv);
         });
 }
 

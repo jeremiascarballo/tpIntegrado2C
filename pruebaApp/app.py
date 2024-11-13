@@ -31,7 +31,7 @@ def index():
 
 @app.route('/historico', methods=['GET', 'POST'])
 def historico():
-    tipo_dolar = request.form.get('dolar_historico', 'oficial')  # Valor por defecto si no se selecciona
+    tipo_dolar = request.form.get('dolar_historico', 'oficial') 
     url = f"https://api.argentinadatos.com/v1/cotizaciones/dolares/{tipo_dolar}"
     response = requests.get(url)
     
