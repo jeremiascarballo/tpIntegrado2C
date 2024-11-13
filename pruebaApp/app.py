@@ -6,23 +6,16 @@ from email.message import EmailMessage
 app = Flask(__name__)
 CORS(app)
 
-def obtener_datos_cotizacion(cotizacion="dolar"):
+@app.route('/datos_cotizacion/')
+def datos_cotizacion():
     url = "https://dolarapi.com/v1/dolares"
     response = requests.get(url)
+    
     if response.status_code == 200:
-        return response.json()
-    else:
-        return None
-
-@app.route('/datos_cotizacion/<cotizacion>')
-def datos_cotizacion(cotizacion):
-    datos = obtener_datos_cotizacion(cotizacion)
-    if datos:
+        datos = response.json()
         return jsonify(datos)
     else:
         return jsonify({"error": "No se pudieron obtener los datos"}), 500
-
-
 
 
 @app.route('/')
@@ -31,16 +24,21 @@ def index():
 
 @app.route('/historico', methods=['GET', 'POST'])
 def historico():
+    global data_historico_completo
     tipo_dolar = request.form.get('dolar_historico', 'oficial')  # Valor por defecto si no se selecciona
     url = f"https://api.argentinadatos.com/v1/cotizaciones/dolares/{tipo_dolar}"
     response = requests.get(url)
     
     if response.status_code == 200:
-        data_historico = response.json()
-        return render_template('historico.html', data_historico=data_historico)  # Enviar datos si se obtiene respuesta
+        data_historico_completo = response.json()
+        return render_template('historico.html', data_historico_completo=data_historico_completo)  # Enviar datos si se obtiene respuesta
     else:
         # En caso de error, pasar un mensaje a la plantilla
         return render_template('historico.html', error="No se pudo obtener la información histórica.")
+
+@app.route('/datos_cotizacion_historico/')
+def datos_cotizacion_historico():
+        return jsonify(data_historico_completo)
 
 
 

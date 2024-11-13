@@ -1,5 +1,5 @@
 
-const API_URL_DOLAR = '/datos_cotizacion/dolar';
+const API_URL_DOLAR = '/datos_cotizacion/';
 
 async function obtenerCotizaciones(){
     const res = await fetch(API_URL_DOLAR);
