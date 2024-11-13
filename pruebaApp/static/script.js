@@ -48,11 +48,43 @@ document.addEventListener("DOMContentLoaded", function () {
 async function obtenerHistoricoCompleto() {
     const res = await fetch(API_URL_HISTORICO_COMPLETO);
     const data_historico_completo = await res.json();
-    mostrarTabla(data_historico_completo);
+    const fecha_cotizacion = document.getElementById("fecha_cotizacion").value;
+
+    if (fecha_cotizacion) {
+        mostrarTablaFecha(data_historico_completo)
+    }
+    else{
+    mostrarTablaCompleta(data_historico_completo);
+    }
     mostrarGrafico(data_historico_completo);
 }
+function mostrarTablaFecha(datos) {
+    const tablaContainer = document.getElementById("tablaHistorico");
+    tablaContainer.innerHTML = "";
 
-function mostrarTabla(datos) {
+    const tabla = document.createElement("table");
+    const encabezado = document.createElement("tr");
+
+    encabezado.innerHTML = `
+        <th>Tipo de Dólar</th>
+        <th>Compra</th>
+        <th>Fecha</th>
+        <th>Venta</th>
+    `;
+    const fila = document.createElement("tr");
+            fila.innerHTML = `
+                <td>${datos.casa}</td>
+                <td>${datos.compra}</td>
+                <td>${datos.fecha}</td>
+                <td>${datos.venta}</td>
+            `;
+            tabla.appendChild(fila)
+        ;
+        tablaContainer.appendChild(tabla);
+}
+
+
+function mostrarTablaCompleta(datos) {
     const tablaContainer = document.getElementById("tablaHistorico");
     tablaContainer.innerHTML = "";
 
@@ -67,24 +99,23 @@ function mostrarTabla(datos) {
     `;
     tabla.appendChild(encabezado);
 
-    const inicio = (paginaActual - 1) * filasPorPagina;
-    const fin = inicio + filasPorPagina;
-    const datosPaginados = datos.slice(inicio, fin);
-
-    datosPaginados.forEach(dato => {
-        const fila = document.createElement("tr");
-        fila.innerHTML = `
-            <td>${dato.casa}</td>
-            <td>${dato.compra}</td>
-            <td>${dato.fecha}</td>
-            <td>${dato.venta}</td>
-        `;
-        tabla.appendChild(fila);
-    });
-
+        const inicio = (paginaActual - 1) * filasPorPagina;
+        const fin = inicio + filasPorPagina;
+        const datosPaginados = datos.slice(inicio, fin);
+    
+        datosPaginados.forEach(dato => {
+            const fila = document.createElement("tr");
+            fila.innerHTML = `
+                <td>${dato.casa}</td>
+                <td>${dato.compra}</td>
+                <td>${dato.fecha}</td>
+                <td>${dato.venta}</td>
+            `;
+            tabla.appendChild(fila); // Añadir la fila a la tabla en cada iteración
+        });
     tablaContainer.appendChild(tabla);
     mostrarControlesPaginacion(datos);
-}
+    }
 
 //Paginacion: Crear botones "Anterior" "..." y "Siguiente"
 function mostrarControlesPaginacion(datos) {
