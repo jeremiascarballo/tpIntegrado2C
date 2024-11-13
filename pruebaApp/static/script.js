@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+//Inicio Tabla historicos y paginacion.
 async function obtenerHistoricoCompleto() {
     const res = await fetch(API_URL_HISTORICO_COMPLETO);
     const data_historico_completo = await res.json();
@@ -85,15 +86,16 @@ function mostrarTabla(datos) {
     mostrarControlesPaginacion(datos);
 }
 
+//Paginacion: Crear botones "Anterior" "..." y "Siguiente"
 function mostrarControlesPaginacion(datos) {
     const totalPaginas = Math.ceil(datos.length / filasPorPagina);
     const controlesContainer = document.getElementById("controlesPaginacion");
-    controlesContainer.innerHTML = ""; // Limpiar los controles de paginación anteriores
+    controlesContainer.innerHTML = ""; 
 
     const controles = document.createElement("div");
     controles.className = "paginacion";
 
-    // Botón de página anterior
+    //Creo btn Anterior
     const botonAnterior = document.createElement("button");
     botonAnterior.innerText = "Anterior";
     botonAnterior.disabled = paginaActual === 1;
@@ -103,7 +105,7 @@ function mostrarControlesPaginacion(datos) {
     });
     controles.appendChild(botonAnterior);
 
-    // Límite de botones de página a mostrar
+    //Limito los botnes que se muestran sino hay que hacer mucho scroll horizontal.
     const maxBotones = 3;
     let inicio = Math.max(1, paginaActual - Math.floor(maxBotones / 2));
     let fin = Math.min(totalPaginas, inicio + maxBotones - 1);
@@ -112,7 +114,7 @@ function mostrarControlesPaginacion(datos) {
         inicio = Math.max(1, fin - maxBotones + 1);
     }
 
-    // Botones de número de página
+    //Btns de numero de pagina
     if (inicio > 1) {
         const botonPrimero = document.createElement("button");
         botonPrimero.innerText = "1";
@@ -123,9 +125,9 @@ function mostrarControlesPaginacion(datos) {
         controles.appendChild(botonPrimero);
 
         if (inicio > 2) {
-            const elipsis = document.createElement("span");
-            elipsis.innerText = "...";
-            controles.appendChild(elipsis);
+            const puntos = document.createElement("span");
+            puntos.innerText = "...";
+            controles.appendChild(puntos);
         }
     }
 
@@ -142,9 +144,9 @@ function mostrarControlesPaginacion(datos) {
 
     if (fin < totalPaginas) {
         if (fin < totalPaginas - 1) {
-            const elipsis = document.createElement("span");
-            elipsis.innerText = "...";
-            controles.appendChild(elipsis);
+            const puntos = document.createElement("span");
+            puntos.innerText = "...";
+            controles.appendChild(puntos);
         }
 
         const botonUltimo = document.createElement("button");
@@ -156,7 +158,7 @@ function mostrarControlesPaginacion(datos) {
         controles.appendChild(botonUltimo);
     }
 
-    // Botón de página siguiente
+    //Creo el btn Siguiente 
     const botonSiguiente = document.createElement("button");
     botonSiguiente.innerText = "Siguiente";
     botonSiguiente.disabled = paginaActual === totalPaginas;
@@ -168,13 +170,15 @@ function mostrarControlesPaginacion(datos) {
 
     controlesContainer.appendChild(controles);
 }
+//Fin Tabla historicos y paginacion.
 
+
+//Inicio Grafica
 function mostrarGrafico(datos) {
-    // Obtener fechas y valores de venta para la gráfica
     const fechas = datos.map(dato => dato.fecha);
     const valoresVenta = datos.map(dato => parseFloat(dato.venta));
 
-    // Configuración de la gráfica
+    //Configuracion de la grafica
     const ctx = document.getElementById('graficoHistorico').getContext('2d');
     new Chart(ctx, {
         type: 'line',
@@ -208,5 +212,5 @@ function mostrarGrafico(datos) {
         }
     });
 }
-
+//Fin gfafica 
 obtenerHistoricoCompleto();
