@@ -1,10 +1,8 @@
 from flask import Flask, render_template, jsonify, request
-from flask_cors import CORS
-import requests, os, ssl, smtplib
+import requests, ssl, smtplib
 from email.message import EmailMessage
 
 app = Flask(__name__)
-CORS(app)
 
 data_historico_completo = []
 
