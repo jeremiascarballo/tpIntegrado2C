@@ -5,14 +5,14 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: beige;
+    background-color: rgb(145, 215, 165);
 }
 
 nav{
     position: sticky;
     top: 0;
-    background-color: rgb(194, 194, 176);
-    border: solid 0.2rem black;
+    /*background-color: rgb(145, 215, 165);*/
+    background-color: black;
     z-index: 1000;
 }
 nav ul{
@@ -31,14 +31,13 @@ nav li:hover{
 }
 nav a{
     text-decoration: none;
-    color: black;
+    color : white;
     font-size: 1.2rem;
     padding: 2rem;
     display: block;
 }
 a.active {
     background-color: rgb(61, 122, 69);
-    color: white;
 }
 
 h2{
@@ -178,7 +177,7 @@ h3{
     border-collapse: collapse;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: white; 
+    background-color: #fff; 
     padding: 10px;
 }
 
@@ -189,12 +188,12 @@ h3{
     border-collapse: collapse;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: white; 
+    background-color: #fff; 
     padding: 10px;
 }
 
 #tablaHistorico th {
-    background-color: #4CAF50;  /* Color de fondo verde */
+    background-color: #4CAF50;
     color: white;
     padding: 12px;
     font-size: 1.1rem;
@@ -203,7 +202,7 @@ h3{
 }
 
 #tablaFecha th {
-    background-color: #4CAF50;  /* Color de fondo verde */
+    background-color: #4CAF50; 
     color: white;
     padding: 12px;
     font-size: 1.1rem;
@@ -224,7 +223,11 @@ h3{
 }
 
 #tablaHistorico tr:hover {
-    background-color: #d7cfcf; 
+    background-color: #c0b0b0; 
+}
+
+#tablaFecha tr:hover {
+    background-color: #c0b0b0; 
 }
 
 #controlesPaginacion {
@@ -273,12 +276,12 @@ h3{
     align-items: center;
     margin-top: 2rem;
     width: 100%;
-    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 
 #graficoHistorico {
-    max-width: 100%;
-    height: 400px;  
+    max-width: 60%; 
+    max-height: 250px;
 }
 
 footer {
