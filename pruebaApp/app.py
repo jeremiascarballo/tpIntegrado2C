@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 import requests, ssl, smtplib
 from email.message import EmailMessage
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -27,8 +28,12 @@ def historico():
     global data_historico_completo
     fecha_cotizacion = request.form.get('fecha_cotizacion')
     tipo_dolar = request.form.get('dolar_historico', 'oficial')
-    if fecha_cotizacion is not None:
+    if fecha_cotizacion :
+        try:
+            fecha_cotizacion = datetime.strptime(fecha_cotizacion, '%Y-%m-%d').strftime('%Y/%m/%d')
             url = f"https://api.argentinadatos.com/v1/cotizaciones/dolares/{tipo_dolar}/{fecha_cotizacion}"
+        except ValueError:
+            return render_template('historico.html', error="El formato de la fecha no es válido.")
     else:
             url = f"https://api.argentinadatos.com/v1/cotizaciones/dolares/{tipo_dolar}"
 

@@ -11,10 +11,14 @@ async function obtenerCotizaciones(){
     mostrarCotizacionDolar(data,'cotizaciones');
 }
 
-function mostrarCotizacionDolar(data, idContainer){
+function mostrarCotizacionDolar(data, idContainer) {
         const container = document.getElementById(idContainer);
-        container.innerHTML = '';
+        if (!container) {
+            console.error(`Elemento con id ${idContainer} no existe en el DOM`);
+            return; 
+        }
 
+        container.innerHTML = '';
         data.forEach(data => {
             const cotizacionDiv = document.createElement('div');
             cotizacionDiv.classList.add(data.nombre === "Oficial" ? 'oficial' : 'cotizacion');
@@ -50,7 +54,8 @@ async function obtenerHistoricoCompleto() {
     const data_historico_completo = await res.json();
     let fecha_cotizacion = document.getElementById("fecha_cotizacion").value;
 
-    if (fecha_cotizacion && fecha_cotizacion !=="") {
+    if (fecha_cotizacion) {
+        //fecha_cotizacion = fecha_cotizacion.replace(/-/g, '/');
         mostrarTablaFecha(data_historico_completo);
     }
     else{
@@ -58,16 +63,23 @@ async function obtenerHistoricoCompleto() {
     }
     mostrarGrafico(data_historico_completo);
 }
+
 function mostrarTablaFecha(dato) {
+    document.querySelector(".tablaContainerFecha").style.display = "flex";
+
+    const tablaContainerFecha = document.getElementById("tablaFecha");
+    tablaContainerFecha.innerHTML = "";
+
     const tabla = document.createElement("table");
     const encabezado = document.createElement("tr");
 
-    encabezado.innerHTML = `
+    encabezado.innerHTML = 
+        `
         <th>Tipo de Dólar</th>
         <th>Compra</th>
         <th>Fecha</th>
         <th>Venta</th>
-    `;
+        `;
     tabla.appendChild(encabezado);
 
         const fila = document.createElement("tr");
@@ -78,12 +90,13 @@ function mostrarTablaFecha(dato) {
             <td>${dato.venta}</td>
         `;
         tabla.appendChild(fila);
-    ;
-    document.getElementById("tablaHistorico").appendChild(tabla);
+    tablaContainerFecha.appendChild(tabla);
 }
 
 
-function mostrarTabla(datos) {
+function mostrarTabla(datos) {  
+    document.querySelector(".tablaContainer").style.display = "flex";
+
     const tablaContainer = document.getElementById("tablaHistorico");
     tablaContainer.innerHTML = "";
 
@@ -97,6 +110,10 @@ function mostrarTabla(datos) {
         <th>Venta</th>
     `;
     tabla.appendChild(encabezado);
+
+    if (!Array.isArray(datos)) {
+        datos = [datos]; // Convierte a un array si no lo es
+    }
 
         const inicio = (paginaActual - 1) * filasPorPagina;
         const fin = inicio + filasPorPagina;
@@ -205,6 +222,10 @@ function mostrarControlesPaginacion(datos) {
 
 //Inicio Grafica
 function mostrarGrafico(datos) {
+    if (!Array.isArray(datos)) {
+        datos = [datos]; // Convierte 'datos' a un array si es un objeto único
+    }
+
     const fechas = datos.map(dato => dato.fecha);
     const valoresVenta = datos.map(dato => parseFloat(dato.venta));
 

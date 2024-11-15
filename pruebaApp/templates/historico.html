@@ -17,7 +17,8 @@
         <h2>Histórico de Moneda</h2>
         <div class="formulario">
             <form action="/historico" method="POST">
-                <label for="dolar">Selecciona un tipo de dolar:</label>
+                <div class="formulario">
+                    <label for="dolar">Selecciona un tipo de dolar:</label>
                     <select name="dolar_historico" id="dolar_historico">
                         <option value="null"></option>
                         <option value="oficial">oficial</option>
@@ -29,21 +30,20 @@
                         <option value="solidario">solidario</option>
                         <option value="turista">turista</option>
                     </select>
+                </div>
+                <div class="formulario">
                     <label for="fecha_cotizacion">Selecciona fecha de cotizacion:</label>
-                    <input type="text" name ="fecha_cotizacion" id="fecha_cotizacion" placeholder="">
+                    <input type="date" name ="fecha_cotizacion" id="fecha_cotizacion" placeholder="">
+                </div>
 
-                    <button type="submit">Enviar</button>
+                <button type="submit">Enviar</button>
             </form>
         </div>
 
-        <div>
-            <div id="tablaFecha" class="tablaFecha">
-                
-            </div>            
-        <div id="tablaHistorico" class="tablaContainer"></div>
 
+        <div id="tablaFecha" class="tablaContainerFecha"></div>            
+        <div id="tablaHistorico" class="tablaContainer"></div>
         <div id="controlesPaginacion" class="controlesContainer"></div>
-        </div>
 
         <div class="grafico-container">
             <canvas id="graficoHistorico"></canvas>
