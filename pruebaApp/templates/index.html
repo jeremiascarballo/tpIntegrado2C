@@ -19,11 +19,17 @@
         <div id="cotizaciones" class="cotizaciones">
 
         </div>
-        <div class="formulario">
+        <div class="formulario-mail">
                 <p>Para recibir informacion de cotizaciones deje su mail</p>
                 <form action="/usuario" method="POST">
-                <label for="mail">Correo:</label>
+                <label for="nombre_usuario">Nombre</label>
+                <br>
+                <input type="text" id="nombre_usuario" name="nombre_usuario" required>
+                <br>
+                <label for="mail">Correo</label>
+                <br>
                 <input type="email" id="mail" name="mail" required>
+                <br>
                 <button type="submit">Enviar</button>
         </div>
     </main> 
