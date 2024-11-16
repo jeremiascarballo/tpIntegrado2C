@@ -1,6 +1,6 @@
 
 const API_URL_DOLAR = '/datos_cotizacion/';
-const API_URL_HISTORICO_COMPLETO = '/datos_cotizacion_historico/';
+const API_URL_HISTORICO_COMPLETO = '/datos_cotizacion_historico';
 
 let paginaActual = 1;
 const filasPorPagina = 10;
@@ -22,15 +22,11 @@ function mostrarCotizacionDolar(data, idContainer) {
         data.forEach(data => {
             const cotizacionDiv = document.createElement('div');
             cotizacionDiv.classList.add(data.nombre === "Oficial" ? 'oficial' : 'cotizacion');
-
-            const fecha = new Date(data.fechaActualizacion);
-            const fechaFormateada = fecha.toLocaleString();
-
             cotizacionDiv.innerHTML = 
                 `<h3>${data.nombre}</h3>
                 <p>Compra: $${data.compra}</p>
                 <p>Venta: $${data.venta}</p>
-                <p>Última actualización: ${fechaFormateada}</p>`;
+                <p>Última actualización: ${data.fecha}</p>`;
             container.appendChild(cotizacionDiv);
         });
 }
@@ -53,7 +49,7 @@ async function obtenerHistoricoCompleto() {
     const res = await fetch(API_URL_HISTORICO_COMPLETO);
     const data_historico_completo = await res.json();
     let fecha_cotizacion = document.getElementById("fecha_cotizacion").value;
-
+    console.log(data_historico_completo)
     if (fecha_cotizacion) {
         //fecha_cotizacion = fecha_cotizacion.replace(/-/g, '/');
         mostrarTablaFecha(data_historico_completo);
